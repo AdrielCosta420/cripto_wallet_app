@@ -1,0 +1,118 @@
+{
+  "project_info": {
+    "project_number": "715435058171",
+    "project_id": "criptos-wallet-app",
+    "storage_bucket": "criptos-wallet-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715435058171:android:cfef0496fb68d913a1615e",
+        "android_client_info": {
+          "package_name": "br.com.adriel.cripto_wallet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715435058171-nvoe8d0eckrj4tmiqjf66v3133e37mke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyjYJ1o5-4kR2cicD4aoxefYdpvM0acN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715435058171-nvoe8d0eckrj4tmiqjf66v3133e37mke.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "715435058171-9qr89nm3hplm60q0eep2a0lktqojasb0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.meusprojetos.criptoMoedas"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715435058171:android:3bf6f3db0cdea15da1615e",
+        "android_client_info": {
+          "package_name": "com.example.cripto_moedas"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715435058171-nvoe8d0eckrj4tmiqjf66v3133e37mke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyjYJ1o5-4kR2cicD4aoxefYdpvM0acN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715435058171-nvoe8d0eckrj4tmiqjf66v3133e37mke.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "715435058171-9qr89nm3hplm60q0eep2a0lktqojasb0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.meusprojetos.criptoMoedas"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:715435058171:android:3e2e86474be3b7d2a1615e",
+        "android_client_info": {
+          "package_name": "com.meusprojetos.cripto_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "715435058171-nvoe8d0eckrj4tmiqjf66v3133e37mke.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDyjYJ1o5-4kR2cicD4aoxefYdpvM0acN0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "715435058171-nvoe8d0eckrj4tmiqjf66v3133e37mke.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "715435058171-9qr89nm3hplm60q0eep2a0lktqojasb0.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.meusprojetos.criptoMoedas"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
