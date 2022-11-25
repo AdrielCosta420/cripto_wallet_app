@@ -8,7 +8,10 @@ import 'package:cripto_wallet/my_app.dart';
 import 'app/common/repositories/favoritas_repository.dart';
 import 'configs/app_settings.dart';
 import 'configs/hive_config.dart';
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:firebase_core/firebase_core.dart';
+
+FirebaseMessaging messagingPush = FirebaseMessaging.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -20,9 +23,10 @@ void main() async {
       providers: [
         ChangeNotifierProvider(create: (context) => AuthService()),
         ChangeNotifierProvider(create: (context) => MoedasRepository()),
-        ChangeNotifierProvider(create: (context) => ContaRepository(
-          moedas: context.read<MoedasRepository>()),
-          ),
+        ChangeNotifierProvider(
+          create: (context) =>
+              ContaRepository(moedas: context.read<MoedasRepository>()),
+        ),
         ChangeNotifierProvider(create: (context) => AppSettings()),
         ChangeNotifierProvider(
           create: (context) => FavoritasRepository(

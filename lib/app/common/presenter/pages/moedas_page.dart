@@ -1,5 +1,6 @@
 import 'package:cripto_wallet/app/common/repositories/favoritas_repository.dart';
 import 'package:cripto_wallet/app/common/repositories/moedas_repository.dart';
+import 'package:dio/dio.dart';
 import '../../../../configs/app_settings.dart';
 import 'package:provider/provider.dart';
 import '../../models/moedas.dart';
@@ -21,6 +22,7 @@ class _MoedasPageState extends State<MoedasPage> {
   List<Moedas> selecionadas = [];
   late FavoritasRepository favoritas;
   late MoedasRepository moedas;
+  double dolarAtual = 0;
 
   readNumberFormat() {
     loc = context.watch<AppSettings>().locale;
@@ -110,29 +112,29 @@ class _MoedasPageState extends State<MoedasPage> {
       body: RefreshIndicator(
         onRefresh: () => moedas.checkPreco(),
         child: ListView.separated(
-          itemBuilder: (BuildContext context, int moeda) {
+          itemBuilder: (BuildContext context, int pos) {
             return ListTile(
               shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.all(Radius.circular(12))),
-              leading: (selecionadas.contains(tabela[moeda]))
+              leading: (selecionadas.contains(tabela[pos]))
                   ? const CircleAvatar(
                       child: Icon(Icons.check),
                     )
                   : SizedBox(
                       width: 40,
-                      child: Image.network(tabela[moeda].icone),
+                      child: Image.network(tabela[pos].icone),
                     ),
               title: Row(
                 children: [
                   Text(
-                    tabela[moeda].nome,
+                    tabela[pos].nome,
                     style: const TextStyle(
                       fontWeight: FontWeight.w700,
                       fontSize: 17,
                     ),
                   ),
                   if (favoritas.lista
-                      .any((fav) => fav.sigla == tabela[moeda].sigla))
+                      .any((fav) => fav.sigla == tabela[pos].sigla))
                     const Padding(
                       padding: EdgeInsets.all(10),
                       child: Icon(
@@ -144,19 +146,21 @@ class _MoedasPageState extends State<MoedasPage> {
                 ],
               ),
               trailing: Text(
-                real.format(tabela[moeda].preco),
+                context.read<AppSettings>().locale['locale'] == 'pt_BR'
+                    ? real.format(tabela[pos].preco)
+                    : real.format(tabela[pos].precoDolar),
                 style: const TextStyle(fontWeight: FontWeight.w500),
               ),
-              selected: selecionadas.contains(tabela[moeda]),
+              selected: selecionadas.contains(tabela[pos]),
               selectedTileColor: Colors.indigo[50],
               onLongPress: () {
                 setState(() {
-                  (selecionadas.contains(tabela[moeda]))
-                      ? selecionadas.remove(tabela[moeda])
-                      : selecionadas.add(tabela[moeda]);
+                  (selecionadas.contains(tabela[pos]))
+                      ? selecionadas.remove(tabela[pos])
+                      : selecionadas.add(tabela[pos]);
                 });
               },
-              onTap: () => mostrarDetalhes(tabela[moeda]),
+              onTap: () => mostrarDetalhes(tabela[pos]),
             );
           },
           padding: const EdgeInsets.all(16),

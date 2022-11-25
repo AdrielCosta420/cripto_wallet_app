@@ -1,14 +1,13 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class Moedas {
   String baseId;
   String icone;
   String nome;
   String sigla;
   double preco;
+  double? precoDolar;
   DateTime timestamp;
   double mudancaHora;
   double mudancaDia;
@@ -23,6 +22,7 @@ class Moedas {
     required this.nome,
     required this.sigla,
     required this.preco,
+    this.precoDolar,
     required this.timestamp,
     required this.mudancaHora,
     required this.mudancaDia,
@@ -39,6 +39,7 @@ class Moedas {
       'nome': nome,
       'sigla': sigla,
       'preco': preco,
+      'precoDolar': precoDolar,
       'timestamp': timestamp.millisecondsSinceEpoch,
       'mudancaHora': mudancaHora,
       'mudancaDia': mudancaDia,
@@ -68,22 +69,56 @@ class Moedas {
 
   factory Moedas.fromMapDatabase(Map<String, dynamic> map) {
     return Moedas(
-        baseId: map['baseId'],
-        icone: map['icone'],
-        nome: map['nome'],
-        sigla: map['sigla'],
-        preco: map['preco'],
-        timestamp: DateTime.fromMicrosecondsSinceEpoch(map['timestamp']),
-        mudancaHora: map['mudancaHora'],
-        mudancaDia: map['mudancaDia'],
-        mudancaSemana: map['mudancaSemana'],
-        mudancaMes: map['mudancaMes'],
-        mudancaAno: map['mudancaAno'],
-        mudancaPeriodoTotal: map['mudancaPeriodoTotal'],
+      baseId: map['baseId'],
+      icone: map['icone'],
+      nome: map['nome'],
+      sigla: map['sigla'],
+      preco: map['preco'],
+      precoDolar: double.parse(map['precoDolar']),
+      timestamp: DateTime.fromMicrosecondsSinceEpoch(map['timestamp']),
+      mudancaHora: map['mudancaHora'],
+      mudancaDia: map['mudancaDia'],
+      mudancaSemana: map['mudancaSemana'],
+      mudancaMes: map['mudancaMes'],
+      mudancaAno: map['mudancaAno'],
+      mudancaPeriodoTotal: map['mudancaPeriodoTotal'],
     );
   }
 
   String toJson() => json.encode(toMap());
 
-  factory Moedas.fromJson(String source) => Moedas.fromMap(json.decode(source) as Map<String, dynamic>);
+  factory Moedas.fromJson(String source) =>
+      Moedas.fromMap(json.decode(source) as Map<String, dynamic>);
+
+  Moedas copyWith({
+    String? baseId,
+    String? icone,
+    String? nome,
+    String? sigla,
+    double? preco,
+    double? precoDolar,
+    DateTime? timestamp,
+    double? mudancaHora,
+    double? mudancaDia,
+    double? mudancaSemana,
+    double? mudancaMes,
+    double? mudancaAno,
+    double? mudancaPeriodoTotal,
+  }) {
+    return Moedas(
+      baseId: baseId ?? this.baseId,
+      icone: icone ?? this.icone,
+      nome: nome ?? this.nome,
+      sigla: sigla ?? this.sigla,
+      preco: preco ?? this.preco,
+      precoDolar: precoDolar ?? this.precoDolar,
+      timestamp: timestamp ?? this.timestamp,
+      mudancaHora: mudancaHora ?? this.mudancaHora,
+      mudancaDia: mudancaDia ?? this.mudancaDia,
+      mudancaSemana: mudancaSemana ?? this.mudancaSemana,
+      mudancaMes: mudancaMes ?? this.mudancaMes,
+      mudancaAno: mudancaAno ?? this.mudancaAno,
+      mudancaPeriodoTotal: mudancaPeriodoTotal ?? this.mudancaPeriodoTotal,
+    );
+  }
 }

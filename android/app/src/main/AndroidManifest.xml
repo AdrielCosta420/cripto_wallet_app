@@ -1,7 +1,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="br.com.adriel.cripto_wallet">
    <application
-        android:label="cripto_wallet"
+        android:label="Cripto Wallet"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity

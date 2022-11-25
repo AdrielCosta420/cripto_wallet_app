@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cripto_wallet/app/common/models/moedas.dart';
 import 'package:cripto_wallet/app/database/db.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -53,6 +54,8 @@ class MoedasRepository extends ChangeNotifier {
     String uri = 'https://api.coinbase.com/v2/assets/prices?base=BRL';
     final response = await http.get(Uri.parse(uri));
 
+    var dolarAtual = await getDolarAtual();
+
     if (response.statusCode == 200) {
       final json = jsonDecode(response.body);
       final List<dynamic> moedas = json['data'];
@@ -71,6 +74,7 @@ class MoedasRepository extends ChangeNotifier {
               'moeda',
               {
                 'preco': moeda['latest'],
+                'precoDolar':converterRealDolar(double.parse(moeda['latest']), dolarAtual),
                 'timestamp': timestamp.millisecondsSinceEpoch,
                 'mudancaHora': preco['percent_change']['hour'].toString(),
                 'mudancaDia': preco['percent_change']['day'].toString(),
@@ -113,6 +117,7 @@ class MoedasRepository extends ChangeNotifier {
       String uri = 'https://api.coinbase.com/v2/assets/search?base=BRL';
 
       final response = await http.get(Uri.parse(uri));
+      var dolarAtual = await getDolarAtual();
 
       if (response.statusCode == 200) {
         final json = jsonDecode(response.body);
@@ -122,7 +127,10 @@ class MoedasRepository extends ChangeNotifier {
         List<Moedas> moedasList = [];
 
         for (var element in moedas) {
-          moedasList.add(Moedas.fromMap(element));
+          Moedas moedas = Moedas.fromMap(element);
+          var moedasComDolar = moedas.copyWith(
+              precoDolar: converterRealDolar(moedas.preco, dolarAtual));
+          moedasList.add(moedasComDolar);
         }
 
         Database db = await Db.instance.database;
@@ -137,6 +145,19 @@ class MoedasRepository extends ChangeNotifier {
     }
   }
 
+  Future<double> getDolarAtual() async {
+    Dio dio = Dio();
+    var response =
+        await dio.get('http://economia.awesomeapi.com.br/json/last/USD-BRL');
+    return double.parse(response.data['USDBRL']['ask']);
+  }
+
+  double converterRealDolar(double real, double dolar) {
+    var valorDolar = real / dolar;
+    var valorDolar2 = valorDolar;
+    return valorDolar2;
+  }
+
   _setupMoedasTable() async {
     const String table = '''
       CREATE TABLE IF NOT EXISTS moedas (
@@ -145,6 +166,7 @@ class MoedasRepository extends ChangeNotifier {
         nome TEXT,
         icone TEXT,
         preco TEXT,
+        precoDolar TEXT,
         timestamp INTEGER,
         mudancaHora TEXT,
         mudancaDia TEXT,

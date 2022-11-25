@@ -68,6 +68,7 @@ class Db {
       nome TEXT,
       sigla TEXT,
       preco REAL,
+      precoDolar TEXT,
       timestamp INTEGER,
       mudancaHora REAL,
       mudancaDia REAL,
